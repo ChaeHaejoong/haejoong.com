@@ -1,0 +1,30 @@
+services:
+  api:
+    build:
+      context: .
+      args:
+        VITE_ASSET_BASE_URL: ${VITE_ASSET_BASE_URL:-}
+    container_name: haejoong.com-api
+    restart: unless-stopped
+    expose:
+      - 3000
+    environment:
+      NODE_ENV: production
+      DB_HOST: haejoong.com-db
+      DB_PORT: 5432
+      REDIS_HOST: haejoong.com-cache
+      REDIS_PORT: 6379
+      UPLOAD_DIR: /data/uploads
+      UPLOAD_PUBLIC_BASE_URL: ${UPLOAD_PUBLIC_BASE_URL:-}
+      FRONTEND_DIST_DIR: /usr/src/app/backend/public
+    env_file:
+      - .env
+    volumes:
+      - ${UPLOADS_PATH:-./backend/uploads}:/data/uploads
+    networks:
+      - haejoong.com-network
+
+
+networks:
+  haejoong.com-network:
+    external: true

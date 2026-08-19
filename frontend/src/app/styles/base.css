@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+:root {
+  --primary: 32 100% 51%;
+
+  --icon-align: -translate-y-0.5;
+
+  --bg: 0 0% 100%;
+  --bg-reverse: 0 0% 7%;
+  --bg-secondary: 210 20% 98%;
+  --bg-secondary-reverse: 0 0% 11%;
+
+  --text-primary: 222 47% 11%;
+  --text-body: 220 20% 20%;
+  --text-secondary: 215 16% 40%;
+  --text-subtle: 215 16% 55%;
+  --text-muted: 215 16% 70%;
+
+  --text-error: 4.11, 89.62%, 58.43%;
+
+  --border-divider: 210 20% 92%;
+
+  --overlay: 0 0% 0% / 0.4;
+
+  --layout-padding: 1rem;
+
+  @media (min-width: 1024px) {
+    --layout-padding: 20%;
+  }
+}
+
+.dark {
+  --bg: 0 0% 7%;
+  --bg-reverse: 0 0% 100%;
+  --bg-secondary: 0 0% 11%;
+  --bg-secondary-reverse: 210 20% 98%;
+
+  --text-primary: 0 0% 92%;
+  --text-body: 0 0% 85%;
+  --text-secondary: 0 0% 70%;
+  --text-subtle: 0 0% 60%;
+  --text-muted: 0 0% 50%;
+
+  --border-divider: 0 0% 18%;
+
+  --overlay: 0 0% 0% / 0.7;
+}
+
+@theme {
+  --color-primary: hsl(var(--primary));
+
+  --color-bg: hsl(var(--bg));
+  --color-bg-reverse: hsl(var(--bg-reverse));
+  --color-bg-secondary: hsl(var(--bg-secondary));
+  --color-bg-secondary-reverse: hsl(var(--bg-secondary-reverse));
+
+  --color-title: hsl(var(--text-primary));
+  --color-body: hsl(var(--text-body));
+  --color-secondary: hsl(var(--text-secondary));
+  --color-subtle: hsl(var(--text-subtle));
+  --color-muted: hsl(var(--text-muted));
+
+  --color-error: hsl(var(--text-error));
+
+  --color-divider: hsl(var(--border-divider));
+
+  --color-overlay: hsl(var(--overlay));
+
+  --spacing-layout: var(--layout-padding);
+
+  --animate-modal-in: modal-in 300ms ease;
+}
+
+@layer base {
+  html {
+    font-family: "line", system-ui, sans-serif;
+
+    -webkit-text-size-adjust: 100% !important;
+    -moz-text-size-adjust: 100% !important;
+    -ms-text-size-adjust: 100% !important;
+  }
+
+  body {
+    background: hsl(var(--bg));
+    color: hsl(var(--text-body));
+  }
+}
+
+@layer utilities {
+  .icon-align {
+    @apply -translate-y-0.5;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@font-face {
+  font-family: "line";
+  src: url("/fonts/Line.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
