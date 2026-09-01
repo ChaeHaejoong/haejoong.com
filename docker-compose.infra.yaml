@@ -1,14 +1,14 @@
 services:
   haejoong.com-db:
     image: postgres:15-alpine
-    container_name: haejoong.com-db 
+    container_name: haejoong.com-db
     expose:
       - 5432
     volumes:
       - haejoong.com-db-volume:/var/lib/postgresql/data
     env_file:
       - .env
-   restart: always
+    restart: always
 
   haejoong.com-cache:
     image: redis:7.2-alpine
@@ -19,7 +19,7 @@ services:
       - haejoong.com-cache-volume:/data
     env_file:
       - .env
-   restart: always
+    restart: always
 
 volumes:
   haejoong.com-db-volume:
