@@ -21,10 +21,3 @@ services:
       - .env
     volumes:
       - ${UPLOADS_PATH:-./backend/uploads}:/data/uploads
-    networks:
-      - haejoong.com-network
-
-
-networks:
-  haejoong.com-network:
-    external: true
