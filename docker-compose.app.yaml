@@ -5,13 +5,21 @@ services:
       args:
         VITE_ASSET_BASE_URL: ${VITE_ASSET_BASE_URL:-}
     container_name: haejoong.com-api
+    depends_on:
+      haejoong.com-db:
+        condition: service_healthy
+    ports:
+      - 3000:3000
     restart: unless-stopped
     expose:
       - 3000
     environment:
       NODE_ENV: production
-      DB_HOST: haejoong.com-db
-      DB_PORT: 5432
+      POSTGRES_HOST: haejoong.com-db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       REDIS_HOST: haejoong.com-cache
       REDIS_PORT: 6379
       UPLOAD_DIR: /data/uploads

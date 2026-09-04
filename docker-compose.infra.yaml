@@ -9,6 +9,12 @@ services:
     env_file:
       - .env
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
   haejoong.com-cache:
     image: redis:7.2-alpine
@@ -17,8 +23,6 @@ services:
       - 6379
     volumes:
       - haejoong.com-cache-volume:/data
-    env_file:
-      - .env
     restart: always
 
 volumes:

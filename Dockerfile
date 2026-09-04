@@ -1,45 +1,45 @@
-FROM node:24-alpine AS builder
+FROM node:24-alpine AS base
+
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
+RUN corepack enable
+
+FROM base AS builder
 
 WORKDIR /usr/src/app
 
+# Copy manifests first so dependency installation can be cached.
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY shared/package.json ./shared/package.json
-COPY shared/package-lock.json ./shared/package-lock.json
-RUN cd shared && npm ci
-COPY shared ./shared
-RUN cd shared && npx tsc -p tsconfig.json
-
 COPY backend/package.json ./backend/package.json
-COPY backend/package-lock.json ./backend/package-lock.json
-RUN cd backend && npm ci
-COPY backend ./backend
-RUN cd backend && npm run build
-
 COPY frontend/package.json ./frontend/package.json
-COPY frontend/package-lock.json ./frontend/package-lock.json
-RUN cd frontend && npm ci
+
+RUN pnpm install --frozen-lockfile
+
+COPY tsconfig.json ./tsconfig.json
+COPY shared ./shared
+COPY backend ./backend
 COPY frontend ./frontend
+
+RUN pnpm --filter @haejoong.com/shared exec tsc -p tsconfig.json
+RUN pnpm --filter backend build
 ARG VITE_ASSET_BASE_URL
 ENV VITE_ASSET_BASE_URL=${VITE_ASSET_BASE_URL}
-RUN cd frontend && npm run build
+RUN pnpm --filter frontend build
 
-FROM node:24-alpine AS runner
+# Create a production-only workspace for the API.
+RUN pnpm deploy --filter backend --prod --legacy /prod/backend
+
+FROM base AS runner
 
 ENV NODE_ENV=production
-WORKDIR /usr/src/app
-
-COPY shared/package.json ./shared/package.json
-COPY shared/package-lock.json ./shared/package-lock.json
-COPY --from=builder /usr/src/app/shared/dist ./shared/dist
-RUN cd shared && npm ci --omit=dev
-
-COPY backend/package.json ./backend/package.json
-COPY backend/package-lock.json ./backend/package-lock.json
-RUN cd backend && npm ci --omit=dev
-
-COPY --from=builder /usr/src/app/backend/dist ./backend/dist
-COPY --from=builder /usr/src/app/frontend/dist ./backend/public
-
 WORKDIR /usr/src/app/backend
+
+COPY --from=builder /prod/backend ./
+COPY --from=builder /usr/src/app/backend/dist ./dist
+COPY --from=builder /usr/src/app/frontend/dist ./public
+
 EXPOSE 3000
 
-CMD ["npm", "run", "start:prod"]
+CMD ["node", "dist/src/main.js"]
