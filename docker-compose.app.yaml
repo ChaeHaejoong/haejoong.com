@@ -8,8 +8,6 @@ services:
     depends_on:
       haejoong.com-db:
         condition: service_healthy
-    ports:
-      - 3000:3000
     restart: unless-stopped
     expose:
       - 3000
