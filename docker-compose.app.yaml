@@ -27,3 +27,5 @@ services:
       - .env
     volumes:
       - ${UPLOADS_PATH:-./backend/uploads}:/data/uploads
+    networks: 
+      - gateway
