@@ -27,5 +27,10 @@ services:
       - .env
     volumes:
       - ${UPLOADS_PATH:-./backend/uploads}:/data/uploads
-    networks: 
+    networks:
       - gateway
+
+networks:
+  gateway:
+    name: gateway
+    external: true
