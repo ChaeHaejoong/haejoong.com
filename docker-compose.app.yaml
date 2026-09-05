@@ -29,8 +29,9 @@ services:
       - ${UPLOADS_PATH:-./backend/uploads}:/data/uploads
     networks:
       - gateway
+      - haejoong.com
 
 networks:
   gateway:
-    name: gateway
     external: true
+  haejoong.com:
