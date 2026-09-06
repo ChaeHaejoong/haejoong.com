@@ -5,8 +5,7 @@
   "private": true,
   "scripts": {
     "start:dev": "docker compose -f docker-compose.infra.yaml -f docker-compose.infra.dev.yaml up -d && concurrently \"pnpm --filter backend start:dev\" \"pnpm --filter frontend dev\"",
-    "start:prod": "docker compose -f docker-compose.app.yaml -f docker-compose.infra.yaml up -d --build",
-    "stop": "docker compose -f docker-compose.app.yaml -f docker-compose.infra.yaml down"
+    "stop": "docker compose -f docker-compose.app.yaml -f docker-compose.infra.yaml -f docker-compose.infra.dev.yaml down"
   },
   "keywords": [],
   "author": "",
