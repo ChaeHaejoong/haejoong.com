@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1025.0",
-    "@haejoong.com/shared": "file:../shared",
+    "@haejoong.com/shared": "workspace:*",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.3",
     "@nestjs/core": "^11.0.1",
