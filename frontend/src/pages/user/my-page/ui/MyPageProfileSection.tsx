@@ -5,7 +5,7 @@ export default function MyPageProfileSection() {
     <section className="space-y-10 sm:space-y-12">
       <div className="space-y-6">
         <div className="space-y-1">
-          <h2 className="text-xl font-semibold tracking-tight text-title sm:text-2xl">
+          <h2 className="text-lg font-semibold text-title">
             프로필 편집
           </h2>
         </div>

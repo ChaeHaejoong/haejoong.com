@@ -10,10 +10,10 @@ interface MyPageProfileSectionProps {
 }
 export default function MyInfo({ user, isAdmin }: MyPageProfileSectionProps) {
   return (
-    <div className="space-y-5 border-b border-divider pb-7 sm:pb-9">
-      <p className="text-sm font-medium text-subtle">내 정보</p>
+    <div className="space-y-5 pb-7 sm:pb-9">
+      <p className="text-lg font-semibold text-title">내 정보</p>
 
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         <ProfileCard user={user} />
 
         <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center lg:justify-end">
