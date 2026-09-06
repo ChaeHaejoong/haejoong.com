@@ -34,3 +34,6 @@ volumes:
     name: haejoong.com-db-volume
   haejoong.com-cache-volume:
     name: haejoong.com-cache-volume
+
+networks:
+  haejoong.com:

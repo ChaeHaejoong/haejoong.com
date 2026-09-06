@@ -7,15 +7,14 @@ import path from "node:path";
 export default defineConfig({
   server: {
     host: "0.0.0.0",
-    allowedHosts: [".ngrok-free.dev", "localhost", "127.0.0.1"],
     proxy: {
       "/api": {
-        target: "http://localhost:3000",
+        target: "http://localhost:3030",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, "/api"),
       },
       "/uploads": {
-        target: "http://localhost:3000",
+        target: "http://localhost:3030",
         changeOrigin: true,
       },
     },

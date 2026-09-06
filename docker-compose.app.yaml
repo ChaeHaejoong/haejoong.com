@@ -1,5 +1,5 @@
 services:
-  api:
+  haejoong.com-api:
     build:
       context: .
       args:
@@ -34,4 +34,3 @@ services:
 networks:
   gateway:
     external: true
-  haejoong.com:

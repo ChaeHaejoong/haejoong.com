@@ -1,0 +1,8 @@
+services:
+  haejoong.com-db:
+    ports:
+      - "127.0.0.1:5432:5432"
+      
+  haejoong.com-cache:
+    ports:
+      - "127.0.0.1:6379:6379"
