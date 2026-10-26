@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { UserRole } from '@haejoong.com/shared';
-import { User } from '../../user/user.entity';
 import { ROLES_KEY } from '../decorators/roles.decorator';
+import { CurrentUserPayload } from '../decorators/current-user.decorator';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -21,7 +21,9 @@ export class RolesGuard implements CanActivate {
 
     if (!requiredRoles || requiredRoles.length === 0) return true;
 
-    const { user } = context.switchToHttp().getRequest<{ user: User }>();
+    const { user } = context
+      .switchToHttp()
+      .getRequest<{ user: CurrentUserPayload }>();
     if (!requiredRoles.includes(user.role)) {
       throw new ForbiddenException('접근 권한이 없어요');
     }
