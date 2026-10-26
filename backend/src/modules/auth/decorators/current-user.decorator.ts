@@ -1,5 +1,4 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { Request } from 'express';
 import { UserRole } from '@haejoong.com/shared';
 
 export type CurrentUserPayload = {
@@ -10,8 +9,9 @@ export type CurrentUserPayload = {
 
 export const CurrentUser = createParamDecorator(
   (data: keyof CurrentUserPayload | undefined, ctx: ExecutionContext) => {
-    const request = ctx.switchToHttp().getRequest<Request>();
-    const user = request.user as CurrentUserPayload;
+    const { user } = ctx
+      .switchToHttp()
+      .getRequest<{ user: CurrentUserPayload }>();
 
     if (!data) return user;
 
