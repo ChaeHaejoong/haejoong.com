@@ -17,6 +17,8 @@ services:
       start_period: 10s
     networks:
       - haejoong.com
+    ports:
+      - "127.0.0.1:5432:5432"
 
   haejoong.com-cache:
     image: redis:7.2-alpine
@@ -28,6 +30,8 @@ services:
     restart: always
     networks:
       - haejoong.com
+    ports:
+      - "127.0.0.1:6379:6379"
 
 volumes:
   haejoong.com-db-volume:
